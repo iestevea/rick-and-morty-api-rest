@@ -1,7 +1,7 @@
 {
-  "name": "06-rest-api-01-concepts",
+  "name": "rick-and-morty-api-rest",
   "version": "1.0.0",
-  "description": "Rest API demos",
+  "description": "This is a basic app to see characters of rick and morty made with api rest and json-server",
   "main": "index.js",
   "scripts": {
     "start": "run-p -l type-check:watch start:dev start:server",
@@ -14,8 +14,8 @@
     "clean": "rimraf dist",
     "postinstall": "cd ./server && npm install"
   },
-  "author": "Lemoncode",
-  "license": "MIT",
+  "author": "Iciar Esteve",
+  "license": "ISC",
   "dependencies": {
     "@lemoncode/fonk": "^1.3.0",
     "@lemoncode/fonk-formik": "^4.0.1",
