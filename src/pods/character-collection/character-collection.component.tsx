@@ -1,39 +1,64 @@
 import * as React from 'react';
+import { Option } from './api/character-collection.api';
+import { useDebounce } from 'use-debounce';
 import { CharacterEntityVm } from './character-collection.vm';
 import * as classes from './character-collection.styles';
-import { Button } from '@material-ui/core';
+import { TextField, Typography } from '@material-ui/core';
+import { Pagination } from '@material-ui/lab';
 import { CharacterCard } from './components/character-card.component';
 
 interface Props {
+  total: number;
   characterCollection: CharacterEntityVm[];
-  onCreateCharacter: () => void;
+  onSearchBy: (options: Option[]) => void;
   onEdit: (id: string) => void;
-  onDelete: (id: string) => void;
 }
 
 export const CharacterCollectionComponent: React.FC<Props> = ({
+  total,
   characterCollection,
-  onCreateCharacter,
-  onDelete,
+  onSearchBy,
   onEdit,
 }) => {
+  const [page, setPage] = React.useState<number>(1);
+  const [filter, setFilter] = React.useState('');
+  const [debouncedFilter] = useDebounce(filter, 500);
+
+  React.useEffect(() => {
+    onSearchBy([{ key: 'name', value: debouncedFilter }]);
+  }, [debouncedFilter]);
+
   return (
     <div className={classes.root}>
-      <Button variant="contained" color="primary" onClick={onCreateCharacter}>
-        Add character
-      </Button>
-
+      <div>
+        <Typography variant="subtitle1" gutterBottom>
+          Filtra por actor:
+        </Typography>
+        <TextField
+          onChange={(e) => setFilter(e.target.value)}
+          value={filter}
+          label="Actor"
+          variant="outlined"
+          size="small"
+        />
+      </div>
       <ul className={classes.list}>
         {characterCollection.map((character) => (
           <li key={character.id}>
-            <CharacterCard
-              character={character}
-              onEdit={onEdit}
-              onDelete={onDelete}
-            />
+            <CharacterCard character={character} onEdit={onEdit} />
           </li>
         ))}
       </ul>
+      <Pagination
+        color="primary"
+        variant="outlined"
+        count={total}
+        onChange={(e, newPage) => {
+          setPage(newPage);
+          // newPage > page ?  onNextPage() : onPreviousPage();
+        }}
+        page={page}
+      />
     </div>
   );
 };

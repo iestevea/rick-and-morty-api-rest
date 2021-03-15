@@ -1,21 +1,11 @@
-interface UrlEntity {
-  name: string,
-  url: string
-}
-
 export interface Character {
   id: string;
   name: string;
   status: string;
   species: string;
-  type: string;
-  gender: string;
-  origin: UrlEntity;
-  location: UrlEntity;
+  originName: string;
   image: string;
-  episode: string[];
-  url: string;
-  created: string;
+  comment: string;
 }
 
 export const createEmptyCharacter = (): Character => ({
@@ -23,18 +13,7 @@ export const createEmptyCharacter = (): Character => ({
   name: "",
   status: "",
   species: "",
-  type: "",
-  gender: "",
-  origin: {
-    name: '',
-    url: ''
-  },
-  location: {
-    name: '',
-    url: ''
-  },
+  originName: "",
   image: "",
-  episode: [],
-  url: "",
-  created: "",
+  comment: ""
 });

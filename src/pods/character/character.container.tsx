@@ -1,23 +1,16 @@
 import { Lookup } from 'common/models';
+import { linkRoutes } from 'core/router';
 import * as React from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import * as api from './api';
-import { Character } from './api';
 import { CharacterComponent } from './character.component';
 import { mapCharacterFromApiToVm, mapCharacterFromVmToApi } from './character.mappers';
-import { createEmptyCharacter } from './character.vm';
+import { Character, createEmptyCharacter } from './character.vm';
 
 export const CharacterContainer = () => {
-
   const [character, setCharacter] = React.useState<Character>(createEmptyCharacter());
-  const [locations, setLocations] = React.useState<Lookup[]>([]);
   const { id }: any = useParams();
   const history = useHistory();
-
-  const handleLoadLocationCollection = async () => {
-    const apiLocations = await api.getLocations();
-    setLocations(apiLocations);
-  };
 
   const handleLoadCharacter = async () => {
     const apiCharacter = await api.getCharacter(id);
@@ -28,8 +21,11 @@ export const CharacterContainer = () => {
     if (id) {
       handleLoadCharacter();
     }
-    handleLoadLocationCollection();
   }, []);
+
+  const handleGoBack = () => {
+    history.push(linkRoutes.characterCollection);
+  }
 
   const handleSave = async (character: Character) => {
     const apiCharacter = mapCharacterFromVmToApi(character);
@@ -41,5 +37,5 @@ export const CharacterContainer = () => {
     }
   };
 
-  return <CharacterComponent character={character} locations={locations} onSave={handleSave} />;
+  return <CharacterComponent character={character} onSave={handleSave} onGoBack={handleGoBack}/>;
 };

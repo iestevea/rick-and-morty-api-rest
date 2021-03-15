@@ -1,15 +1,20 @@
+import Axios from 'axios';
 import { Character } from './character.api-model';
 import { Lookup } from 'common/models';
-import { mockLocations, mockCharacterCollection } from './character.mock-data';
+
+const charactersApi = process.env.CHARACTERS_API;
 
 export const getCharacter = async (id: string): Promise<Character> => {
-  return mockCharacterCollection.find((h) => h.id === id);
+  const { data } = await Axios.get(`${charactersApi}/character/${id}`);
+  return data;
 };
 
 export const getLocations = async (): Promise<Lookup[]> => {
-  return mockLocations;
+  const { data: { results } } = await Axios.get(`${charactersApi}/location`);
+  return results;
 };
 
 export const saveCharacter = async (character: Character): Promise<boolean> => {
-  return true;
+  if (character)
+    return true;
 };

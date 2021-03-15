@@ -1,7 +1,7 @@
 import { linkRoutes } from 'core/router';
 import * as React from 'react';
 import { useHistory } from 'react-router-dom';
-import { deleteCharacter } from './api';
+import { Option } from './api';
 import { CharacterCollectionComponent } from './character-collection.component';
 import { useCharacterCollection } from './character-collection.hook';
 
@@ -9,6 +9,8 @@ export const CharacterCollectionContainer = () => {
   const {
     characterCollection,
     loadCharacterCollection,
+    filterCharacterCollection,
+    totalCharacters,
   } = useCharacterCollection();
   const history = useHistory();
 
@@ -16,25 +18,20 @@ export const CharacterCollectionContainer = () => {
     loadCharacterCollection();
   }, []);
 
-  const handleCreateCharacter = () => {
-    history.push(linkRoutes.createCharacter);
-  };
-
   const handleEdit = (id: string) => {
     history.push(linkRoutes.editCharacter(id));
   };
 
-  const handleDelete = async (id: string) => {
-    await deleteCharacter(id);
-    loadCharacterCollection();
+  const handleSearchBy = (options: Option[]) => {
+    filterCharacterCollection(options);
   };
 
   return (
     <CharacterCollectionComponent
+      total={totalCharacters}
       characterCollection={characterCollection}
-      onCreateCharacter={handleCreateCharacter}
+      onSearchBy={handleSearchBy}
       onEdit={handleEdit}
-      onDelete={handleDelete}
     />
   );
 };

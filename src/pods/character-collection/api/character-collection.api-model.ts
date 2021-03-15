@@ -3,7 +3,7 @@ interface UrlEntity {
   url: string
 }
 export interface CharacterEntityApi {
-  id: string;
+  id: number;
   name: string;
   status: string;
   species: string;

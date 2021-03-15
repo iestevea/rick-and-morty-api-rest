@@ -1,48 +1,102 @@
-import { Button } from '@material-ui/core';
 import {
-  TextFieldComponent,
-  RatingComponent,
-  SelectComponent,
-} from 'common/components';
+  Avatar,
+  Badge,
+  Button,
+  Card,
+  CardContent,
+  CardHeader,
+  CardMedia,
+  IconButton,
+  Typography,
+} from '@material-ui/core';
+import { TextFieldComponent } from 'common/components';
 import { Form, Formik } from 'formik';
 import * as React from 'react';
 import { formValidation } from './character.validations';
 import * as classes from './character.styles';
 import { Character } from './character.vm';
-import { Lookup } from 'common/models';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 interface Props {
   character: Character;
-  locations: Lookup[];
+  onGoBack: () => void;
   onSave: (character: Character) => void;
 }
 
-export const CharacterComponent: React.FC<Props> = ({ character, locations, onSave }) => {
+export const CharacterComponent: React.FC<Props> = ({
+  character,
+  onGoBack,
+  onSave,
+}) => {
+  const getInitials = (name: string) =>
+    name
+      .split(' ')
+      .map((n) => n[0])
+      .join('');
+
+  const statusColors = {
+    alive: 'primary',
+    dead: 'error',
+    unknown: 'secondary',
+  };
+
   return (
-    <Formik
-      onSubmit={onSave}
-      initialValues={character}
-      enableReinitialize={true}
-      validate={formValidation.validateForm}
-    >
-      {() => (
-        <Form className={classes.root}>
-          <TextFieldComponent name="name" label="Name" />
-          <TextFieldComponent name="address" label="Address" />
-          <RatingComponent name="rating" max={5} />
-          <SelectComponent name="city" label="City" items={locations} />
-          <TextFieldComponent
-            name="description"
-            label="Description"
-            multiline={true}
-            rows={3}
-            rowsMax={5}
+    <>
+      <IconButton onClick={() => onGoBack()}>
+        <ArrowBackIcon />{' '}
+      </IconButton>
+      <Card>
+        <CardHeader
+          avatar={
+            <Avatar aria-label="Hotel">{getInitials(character.name)}</Avatar>
+          }
+          title={character.name}
+          subheader={
+            <>
+              <Badge
+                style={{ marginRight: '8px' }}
+                color={statusColors[character.status.toLocaleLowerCase()]}
+                variant="dot"
+              />
+              {character.status}
+            </>
+          }
+        />
+        <CardContent>
+          <CardMedia
+            image={character.image}
+            title={character.name}
+            style={{ height: 0, paddingTop: '56.25%' }}
           />
-          <Button type="submit" variant="contained" color="primary">
-            Save
-          </Button>
-        </Form>
-      )}
-    </Formik>
+          <Typography variant="subtitle1" gutterBottom>
+            Species: {character.species}
+          </Typography>
+          <Typography variant="subtitle1" gutterBottom>
+            Origin: {character.originName}
+          </Typography>
+          <Formik
+            onSubmit={onSave}
+            initialValues={character}
+            enableReinitialize={true}
+            validate={formValidation.validateForm}
+          >
+            {() => (
+              <Form className={classes.root}>
+                <TextFieldComponent
+                  name="comment"
+                  label="Comentario"
+                  multiline={true}
+                  rows={3}
+                  rowsMax={5}
+                />
+                <Button type="submit" variant="contained" color="primary">
+                  Save
+                </Button>
+              </Form>
+            )}
+          </Formik>
+        </CardContent>
+      </Card>
+    </>
   );
 };

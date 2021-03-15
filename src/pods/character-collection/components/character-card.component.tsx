@@ -8,26 +8,48 @@ import CardActions from '@material-ui/core/CardActions';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar/Avatar';
 import IconButton from '@material-ui/core/IconButton/IconButton';
-import EditIcon from '@material-ui/icons/Edit';
-import DeleteIcon from '@material-ui/icons/Delete';
+import VisibilityIcon from '@material-ui/icons/Visibility';
 import { CharacterEntityVm } from '../character-collection.vm';
 import * as classes from './character-card.styles';
+import { Badge, Button } from '@material-ui/core';
 
 interface Props {
   character: CharacterEntityVm;
   onEdit: (id: string) => void;
-  onDelete: (id: string) => void;
 }
 
 export const CharacterCard: React.FunctionComponent<Props> = (props) => {
-  const { character, onEdit, onDelete } = props;
+  const { character, onEdit } = props;
+
+  const getInitials = (name: string) =>
+    name
+      .split(' ')
+      .map((n) => n[0])
+      .join('');
+
+  const statusColors = {
+    alive: 'primary',
+    dead: 'error',
+    unknown: 'secondary',
+  };
 
   return (
     <Card>
       <CardHeader
-        avatar={<Avatar aria-label="Hotel">{character.name}</Avatar>}
+        avatar={
+          <Avatar aria-label="Hotel">{getInitials(character.name)}</Avatar>
+        }
         title={character.name}
-        subheader={character.gender}
+        subheader={
+          <>
+            <Badge
+              style={{ marginRight: '8px' }}
+              color={statusColors[character.status.toLocaleLowerCase()]}
+              variant="dot"
+            />
+            {character.status}
+          </>
+        }
       />
       <CardContent>
         <div className={classes.content}>
@@ -37,16 +59,16 @@ export const CharacterCard: React.FunctionComponent<Props> = (props) => {
             style={{ height: 0, paddingTop: '56.25%' }}
           />
           <Typography variant="subtitle1" gutterBottom>
-            {character.name}
+            Species: {character.species}
+          </Typography>
+          <Typography variant="subtitle1" gutterBottom>
+            Origin: {character.originName}
           </Typography>
         </div>
       </CardContent>
       <CardActions>
         <IconButton onClick={() => onEdit(character.id)}>
-          <EditIcon />
-        </IconButton>
-        <IconButton onClick={() => onDelete(character.id)}>
-          <DeleteIcon />
+          <VisibilityIcon />
         </IconButton>
       </CardActions>
     </Card>
