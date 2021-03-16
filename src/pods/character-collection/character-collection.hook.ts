@@ -12,16 +12,16 @@ export const useCharacterCollection = () => {
   const [totalCharacters, setTotalCharacters] = React.useState(0);
 
   const loadCharacterCollection = () => {
-    getCharacterCollection().then(({ results, count }) => {
-      setCharacterCollection(mapToCollection(results, mapFromApiToVm))
-      setTotalCharacters(count);
+    getCharacterCollection().then((data) => {
+      setCharacterCollection(mapToCollection(data, mapFromApiToVm))
+      // setTotalCharacters(count);
     });
   };
 
   const filterCharacterCollection = (options: Option[]) => {
-    getCharacterCollection(options).then(({ results, count }) => {
-      setCharacterCollection(mapToCollection(results, mapFromApiToVm))
-      setTotalCharacters(count);
+    getCharacterCollection(options).then((data) => {
+      setCharacterCollection(mapToCollection(data, mapFromApiToVm))
+      // setTotalCharacters(count);
     });
   }
 

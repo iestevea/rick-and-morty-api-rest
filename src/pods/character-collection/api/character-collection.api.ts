@@ -1,7 +1,7 @@
 import Axios from 'axios';
 import { CharacterEntityApi } from './character-collection.api-model';
 
-const charactersApi = process.env.CHARACTERS_API;
+const charactersApi = process.env.MOCK_API;
 
 export interface Option {
   key: string;
@@ -15,9 +15,9 @@ const mapOptions = (options: Option[]) => {
   }, '')
 }
 
-export const getCharacterCollection = async (options?: Option[]): Promise<{ results: CharacterEntityApi[], count: number }> => {
-  const endpoint = options ? `${charactersApi}/character/?${mapOptions(options)}` : `${charactersApi}/character`;
-  console.log(endpoint);
-  const { data: { results, info: { pages: count } } } = await Axios.get(endpoint);
-  return { results, count };
+export const getCharacterCollection = async (options?: Option[]): Promise<CharacterEntityApi[]> => {
+  const endpoint = options ? `${charactersApi}/character?${mapOptions(options)}` : `${charactersApi}/character`;
+  const { data } = await Axios.get(endpoint);
+  // const { data: { results, info: { pages: count } } } = await Axios.get(endpoint);
+  return data;
 };

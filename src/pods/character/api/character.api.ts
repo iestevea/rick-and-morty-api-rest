@@ -2,16 +2,16 @@ import Axios from 'axios';
 import { Character } from './character.api-model';
 import { Lookup } from 'common/models';
 
-const charactersApi = process.env.CHARACTERS_API;
+const charactersApi = process.env.MOCK_API;
 
 export const getCharacter = async (id: string): Promise<Character> => {
   const { data } = await Axios.get(`${charactersApi}/character/${id}`);
-  return data;
+  return Array.isArray(data) ? data[0] : data;
 };
 
 export const getLocations = async (): Promise<Lookup[]> => {
-  const { data: { results } } = await Axios.get(`${charactersApi}/location`);
-  return results;
+  const { data } = await Axios.get(`${charactersApi}/location`);
+  return data;
 };
 
 export const saveCharacter = async (character: Character): Promise<boolean> => {
