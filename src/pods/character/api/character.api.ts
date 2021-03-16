@@ -15,6 +15,6 @@ export const getLocations = async (): Promise<Lookup[]> => {
 };
 
 export const saveCharacter = async (character: Character): Promise<boolean> => {
-  if (character)
-    return true;
+  await Axios.patch(`${charactersApi}/character/${character.id}`, { ...character })
+  return true;
 };

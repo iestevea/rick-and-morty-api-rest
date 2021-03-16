@@ -7,12 +7,10 @@ import {
   CardHeader,
   CardMedia,
   IconButton,
+  TextField,
   Typography,
 } from '@material-ui/core';
-import { TextFieldComponent } from 'common/components';
-import { Form, Formik } from 'formik';
 import * as React from 'react';
-import { formValidation } from './character.validations';
 import * as classes from './character.styles';
 import { Character } from './character.vm';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
@@ -28,6 +26,12 @@ export const CharacterComponent: React.FC<Props> = ({
   onGoBack,
   onSave,
 }) => {
+  const [comment, setComment] = React.useState('');
+
+  React.useEffect(() => {
+    setComment(character.comment);
+  }, [character.comment]);
+
   const getInitials = (name: string) =>
     name
       .split(' ')
@@ -74,28 +78,23 @@ export const CharacterComponent: React.FC<Props> = ({
           <Typography variant="subtitle1" gutterBottom>
             Origin: {character.originName}
           </Typography>
-          <Formik
-            onSubmit={onSave}
-            initialValues={character}
-            enableReinitialize={true}
-            validate={formValidation.validateForm}
-          >
-            {() => (
-              <Form className={classes.root}>
-                <TextFieldComponent
-                  name="comment"
-                  label="Comentario"
-                  multiline={true}
-                  rows={3}
-                  rowsMax={5}
-                />
-                <Button type="submit" variant="contained" color="primary">
-                  Save
-                </Button>
-              </Form>
-            )}
-          </Formik>
         </CardContent>
+        <TextField
+          name="comment"
+          label="Comentario"
+          multiline={true}
+          rows={3}
+          rowsMax={5}
+          onChange={(e) => setComment(e.target.value)}
+          value={comment}
+        />
+        <Button
+          onClick={() => onSave({ ...character, comment })}
+          variant="contained"
+          color="primary"
+        >
+          Save
+        </Button>
       </Card>
     </>
   );
