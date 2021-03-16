@@ -20,13 +20,11 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 interface Props {
   character: Character;
   onGoBack: () => void;
-  onSave: (character: Character) => void;
 }
 
 export const CharacterComponent: React.FC<Props> = ({
   character,
   onGoBack,
-  onSave,
 }) => {
   const getInitials = (name: string) =>
     name
@@ -41,7 +39,7 @@ export const CharacterComponent: React.FC<Props> = ({
   };
 
   return (
-    <>
+    <div className={classes.root}>
       <IconButton onClick={() => onGoBack()}>
         <ArrowBackIcon />{' '}
       </IconButton>
@@ -74,29 +72,8 @@ export const CharacterComponent: React.FC<Props> = ({
           <Typography variant="subtitle1" gutterBottom>
             Origin: {character.originName}
           </Typography>
-          <Formik
-            onSubmit={onSave}
-            initialValues={character}
-            enableReinitialize={true}
-            validate={formValidation.validateForm}
-          >
-            {() => (
-              <Form className={classes.root}>
-                <TextFieldComponent
-                  name="comment"
-                  label="Comentario"
-                  multiline={true}
-                  rows={3}
-                  rowsMax={5}
-                />
-                <Button type="submit" variant="contained" color="primary">
-                  Save
-                </Button>
-              </Form>
-            )}
-          </Formik>
         </CardContent>
       </Card>
-    </>
+    </div>
   );
 };

@@ -13,8 +13,3 @@ export const getLocations = async (): Promise<Lookup[]> => {
   const { data: { results } } = await Axios.get(`${charactersApi}/location`);
   return results;
 };
-
-export const saveCharacter = async (character: Character): Promise<boolean> => {
-  if (character)
-    return true;
-};

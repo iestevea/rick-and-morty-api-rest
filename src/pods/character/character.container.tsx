@@ -27,15 +27,5 @@ export const CharacterContainer = () => {
     history.push(linkRoutes.characterCollection);
   }
 
-  const handleSave = async (character: Character) => {
-    const apiCharacter = mapCharacterFromVmToApi(character);
-    const success = await api.saveCharacter(apiCharacter);
-    if (success) {
-      history.goBack();
-    } else {
-      alert('Error on save character');
-    }
-  };
-
-  return <CharacterComponent character={character} onSave={handleSave} onGoBack={handleGoBack}/>;
+  return <CharacterComponent character={character} onGoBack={handleGoBack}/>;
 };

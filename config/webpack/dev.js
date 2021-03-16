@@ -28,9 +28,6 @@ module.exports = merge.strategy({
     port: 8080,
     stats: 'minimal',
     hot: true,
-    // proxy: {
-    //   '/api': 'http://localhost:3000',
-    // },
   },
   module: {
     rules: [
