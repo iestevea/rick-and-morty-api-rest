@@ -3,5 +3,7 @@ import { AppLayout } from 'layouts';
 import { CharacterContainer } from 'pods/character/character.container';
 
 export const CharacterScene = () => (
-  <AppLayout><CharacterContainer/></AppLayout>
+  <AppLayout>
+    <CharacterContainer />
+  </AppLayout>
 );

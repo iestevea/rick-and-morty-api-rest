@@ -1,5 +1,6 @@
 import { Lookup } from 'common/models';
 import { linkRoutes } from 'core/router';
+import { CharacterEntityApi } from 'pods/character-collection/api';
 import * as React from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import * as api from './api';
@@ -14,7 +15,7 @@ export const CharacterContainer = () => {
 
   const handleLoadCharacter = async () => {
     const apiCharacter = await api.getCharacter(id);
-    setCharacter(mapCharacterFromApiToVm(apiCharacter));
+    setCharacter(mapCharacterFromApiToVm(apiCharacter as any));
   };
 
   React.useEffect(() => {
