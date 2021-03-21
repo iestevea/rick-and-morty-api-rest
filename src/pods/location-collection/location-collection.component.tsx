@@ -1,22 +1,22 @@
 import * as React from 'react';
 import { Option } from 'common/mappers';
 import { useDebounce } from 'use-debounce';
-import { EpisodeEntityVm } from './episode-collection.vm';
-import * as classes from './episode-collection.styles';
+import { LocationEntityVm } from './location-collection.vm';
+import * as classes from './location-collection.styles';
 import { TextField, Typography } from '@material-ui/core';
 import { Pagination } from '@material-ui/lab';
-import { EpisodeCard } from './components/episode-card.component';
+import { LocationCard } from './components/location-card.component';
 
 interface Props {
   total: number;
-  episodeCollection: EpisodeEntityVm[];
+  locationCollection: LocationEntityVm[];
   onSearchBy: (options: Option[]) => void;
   onEdit: (id: string) => void;
 }
 
-export const EpisodeCollectionComponent: React.FC<Props> = ({
+export const LocationCollectionComponent: React.FC<Props> = ({
   total,
-  episodeCollection,
+  locationCollection,
   onSearchBy,
   onEdit,
 }) => {
@@ -30,10 +30,22 @@ export const EpisodeCollectionComponent: React.FC<Props> = ({
 
   return (
     <div className={classes.root}>
+      <div>
+        <Typography variant="subtitle1" gutterBottom>
+          Filter by location:
+        </Typography>
+        <TextField
+          onChange={(e) => setFilter(e.target.value)}
+          value={filter}
+          label="Location"
+          variant="outlined"
+          size="small"
+        />
+      </div>
       <ul className={classes.list}>
-        {episodeCollection.map((episode) => (
-          <li key={episode.id}>
-            <EpisodeCard episode={episode} onEdit={onEdit} />
+        {locationCollection.map((location) => (
+          <li key={location.id}>
+            <LocationCard location={location} onEdit={onEdit} />
           </li>
         ))}
       </ul>
@@ -43,7 +55,7 @@ export const EpisodeCollectionComponent: React.FC<Props> = ({
         count={total}
         onChange={(e, newPage) => {
           setPage(newPage);
-          // newPage > page ?  onNextPage() : onPreviousPage();
+          onSearchBy([{ key: 'page', value: newPage }]);
         }}
         page={page}
       />

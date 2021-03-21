@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Option } from './api/character-collection.api';
+import { Option } from 'common/mappers';
 import { useDebounce } from 'use-debounce';
 import { CharacterEntityVm } from './character-collection.vm';
 import * as classes from './character-collection.styles';
@@ -32,7 +32,7 @@ export const CharacterCollectionComponent: React.FC<Props> = ({
     <div className={classes.root}>
       <div>
         <Typography variant="subtitle1" gutterBottom>
-          Filtra por actor:
+          Filter by character:
         </Typography>
         <TextField
           onChange={(e) => setFilter(e.target.value)}
@@ -55,7 +55,7 @@ export const CharacterCollectionComponent: React.FC<Props> = ({
         count={total}
         onChange={(e, newPage) => {
           setPage(newPage);
-          // newPage > page ?  onNextPage() : onPreviousPage();
+          onSearchBy([{ key: 'page', value: newPage }]);
         }}
         page={page}
       />

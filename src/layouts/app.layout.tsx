@@ -33,6 +33,13 @@ export const AppLayout: React.FunctionComponent = (props) => {
           >
             Episodes
           </Typography>
+          <Typography
+            variant="h6"
+            style={{ paddingLeft: '8px', cursor: 'pointer' }}
+            onClick={() => history.push(linkRoutes.locationCollection)}
+          >
+            Places
+          </Typography>
         </Toolbar>
       </AppBar>
       <main className={classes.content}>{children}</main>

@@ -7,41 +7,43 @@ import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar/Avatar';
 import IconButton from '@material-ui/core/IconButton/IconButton';
 import VisibilityIcon from '@material-ui/icons/Visibility';
-import { EpisodeEntityVm } from '../episode-collection.vm';
-import * as classes from './episode-card.styles';
+import { LocationEntityVm } from '../location-collection.vm';
+import * as classes from './location-card.styles';
 
 interface Props {
-  episode: EpisodeEntityVm;
+  location: LocationEntityVm;
   onEdit: (id: string) => void;
 }
 
-export const EpisodeCard: React.FunctionComponent<Props> = (props) => {
-  const { episode, onEdit } = props;
+export const LocationCard: React.FunctionComponent<Props> = (props) => {
+  const { location, onEdit } = props;
 
   return (
     <Card>
       <CardHeader
-        avatar={<Avatar aria-label="Hotel">{episode.id}</Avatar>}
-        title={episode.episode}
-        subheader={episode.air_date}
+        avatar={
+          <Avatar aria-label="Hotel">{location.id}</Avatar>
+        }
+        title={location.name}
+        subheader={location.type}
       />
       <CardContent>
         <div className={classes.content}>
-          <Typography variant="subtitle1" gutterBottom>
-            Episode: {episode.name}
+        <Typography variant="subtitle1" gutterBottom>
+            Dimension: {location.dimension}
           </Typography>
           <Typography variant="subtitle1" gutterBottom>
-            Characters:
+            Residents:
           </Typography>
           <ul>
-            {episode.characters.map((character: string) => (
-              <li>{character}</li>
+            {location.residents.map((resident: string) => (
+              <li>{resident}</li>
             ))}
           </ul>
         </div>
       </CardContent>
       <CardActions>
-        <IconButton onClick={() => onEdit(episode.id)}>
+        <IconButton onClick={() => onEdit(location.id)}>
           <VisibilityIcon />
         </IconButton>
       </CardActions>

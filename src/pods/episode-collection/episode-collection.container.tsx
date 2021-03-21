@@ -1,7 +1,7 @@
 import { linkRoutes } from 'core/router';
 import * as React from 'react';
 import { useHistory } from 'react-router-dom';
-import { Option } from './api';
+import { Option } from 'common/mappers';
 import { EpisodeCollectionComponent } from './episode-collection.component';
 import { useEpisodeCollection } from './episode-collection.hook';
 
