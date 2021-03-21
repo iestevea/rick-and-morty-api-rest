@@ -8,19 +8,16 @@ import { Pagination } from '@material-ui/lab';
 import { CharacterCard } from './components/character-card.component';
 
 interface Props {
-  total: number;
   characterCollection: CharacterEntityVm[];
   onSearchBy: (options: Option[]) => void;
   onEdit: (id: string) => void;
 }
 
 export const CharacterCollectionComponent: React.FC<Props> = ({
-  total,
   characterCollection,
   onSearchBy,
   onEdit,
 }) => {
-  const [page, setPage] = React.useState<number>(1);
   const [filter, setFilter] = React.useState('');
   const [debouncedFilter] = useDebounce(filter, 500);
 
@@ -49,16 +46,6 @@ export const CharacterCollectionComponent: React.FC<Props> = ({
           </li>
         ))}
       </ul>
-      <Pagination
-        color="primary"
-        variant="outlined"
-        count={total}
-        onChange={(e, newPage) => {
-          setPage(newPage);
-          // newPage > page ?  onNextPage() : onPreviousPage();
-        }}
-        page={page}
-      />
     </div>
   );
 };

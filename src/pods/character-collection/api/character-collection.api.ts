@@ -18,6 +18,5 @@ const mapOptions = (options: Option[]) => {
 export const getCharacterCollection = async (options?: Option[]): Promise<CharacterEntityApi[]> => {
   const endpoint = options ? `${charactersApi}/character?${mapOptions(options)}` : `${charactersApi}/character`;
   const { data } = await Axios.get(endpoint);
-  // const { data: { results, info: { pages: count } } } = await Axios.get(endpoint);
   return data;
 };

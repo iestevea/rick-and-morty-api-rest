@@ -79,22 +79,27 @@ export const CharacterComponent: React.FC<Props> = ({
             Origin: {character.originName}
           </Typography>
         </CardContent>
-        <TextField
-          name="comment"
-          label="Comentario"
-          multiline={true}
-          rows={3}
-          rowsMax={5}
-          onChange={(e) => setComment(e.target.value)}
-          value={comment}
-        />
-        <Button
-          onClick={() => onSave({ ...character, comment })}
-          variant="contained"
-          color="primary"
+        <div
+          style={{ display: 'flex', flexDirection: 'column', padding: '16px' }}
         >
-          Save
-        </Button>
+          <TextField
+            name="comment"
+            label="Comentario"
+            multiline={true}
+            rows={3}
+            rowsMax={5}
+            onChange={(e) => setComment(e.target.value)}
+            value={comment}
+          />
+          <Button
+            onClick={() => onSave({ ...character, comment })}
+            variant="contained"
+            color="primary"
+            style={{ marginTop: '8px' }}
+          >
+            Save
+          </Button>
+        </div>
       </Card>
     </>
   );

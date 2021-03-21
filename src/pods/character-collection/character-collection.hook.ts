@@ -9,21 +9,12 @@ export const useCharacterCollection = () => {
   const [characterCollection, setCharacterCollection] = React.useState<CharacterEntityVm[]>(
     []
   );
-  const [totalCharacters, setTotalCharacters] = React.useState(0);
 
-  const loadCharacterCollection = () => {
-    getCharacterCollection().then((data) => {
+  const loadCharacterCollection = (options: Option[]) => {
+    getCharacterCollection(options).then((data) => {
       setCharacterCollection(mapToCollection(data, mapFromApiToVm))
-      // setTotalCharacters(count);
     });
   };
 
-  const filterCharacterCollection = (options: Option[]) => {
-    getCharacterCollection(options).then((data) => {
-      setCharacterCollection(mapToCollection(data, mapFromApiToVm))
-      // setTotalCharacters(count);
-    });
-  }
-
-  return { characterCollection, loadCharacterCollection, filterCharacterCollection, totalCharacters };
+  return { characterCollection, loadCharacterCollection };
 };

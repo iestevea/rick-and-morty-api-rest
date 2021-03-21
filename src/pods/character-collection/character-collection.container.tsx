@@ -9,26 +9,19 @@ export const CharacterCollectionContainer = () => {
   const {
     characterCollection,
     loadCharacterCollection,
-    filterCharacterCollection,
-    totalCharacters,
   } = useCharacterCollection();
   const history = useHistory();
-
-  React.useEffect(() => {
-    loadCharacterCollection();
-  }, []);
 
   const handleEdit = (id: string) => {
     history.push(linkRoutes.editCharacter(id));
   };
 
   const handleSearchBy = (options: Option[]) => {
-    filterCharacterCollection(options);
+    loadCharacterCollection(options);
   };
 
   return (
     <CharacterCollectionComponent
-      total={totalCharacters}
       characterCollection={characterCollection}
       onSearchBy={handleSearchBy}
       onEdit={handleEdit}

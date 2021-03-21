@@ -1,6 +1,4 @@
 {
-  "/api/*": "/$1",
-  "/character?name=:name": "/character?name_like=:name",
-  "/character?status=:status": "/character?status_like=:status",
-  "/character?species=:species": "/character?species_like=:species"
+  "/api/character?&name=:name": "/character?name_like=:name",
+  "/api/*": "/$1"
 }
