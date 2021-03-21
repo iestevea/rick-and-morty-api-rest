@@ -25,11 +25,27 @@ export const EpisodeCollectionComponent: React.FC<Props> = ({
   const [debouncedFilter] = useDebounce(filter, 500);
 
   React.useEffect(() => {
-    onSearchBy([{ key: 'name', value: debouncedFilter }]);
+    setPage(1);
+    onSearchBy([
+      { key: 'name', value: debouncedFilter },
+      { key: 'page', value: 1 },
+    ]);
   }, [debouncedFilter]);
 
   return (
     <div className={classes.root}>
+      <div>
+        <Typography variant="subtitle1" gutterBottom>
+          Filter by episode:
+        </Typography>
+        <TextField
+          onChange={(e) => setFilter(e.target.value)}
+          value={filter}
+          label="Episode"
+          variant="outlined"
+          size="small"
+        />
+      </div>
       <ul className={classes.list}>
         {episodeCollection.map((episode) => (
           <li key={episode.id}>
@@ -43,7 +59,10 @@ export const EpisodeCollectionComponent: React.FC<Props> = ({
         count={total}
         onChange={(e, newPage) => {
           setPage(newPage);
-          // newPage > page ?  onNextPage() : onPreviousPage();
+          onSearchBy([
+            { key: 'name', value: debouncedFilter },
+            { key: 'page', value: newPage },
+          ]);
         }}
         page={page}
       />

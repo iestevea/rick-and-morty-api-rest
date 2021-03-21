@@ -33,20 +33,10 @@ export const LocationCard: React.FunctionComponent<Props> = (props) => {
             Dimension: {location.dimension}
           </Typography>
           <Typography variant="subtitle1" gutterBottom>
-            Residents:
+            Number of residents: {location.residents.length}
           </Typography>
-          <ul>
-            {location.residents.map((resident: string) => (
-              <li>{resident}</li>
-            ))}
-          </ul>
         </div>
       </CardContent>
-      <CardActions>
-        <IconButton onClick={() => onEdit(location.id)}>
-          <VisibilityIcon />
-        </IconButton>
-      </CardActions>
     </Card>
   );
 };

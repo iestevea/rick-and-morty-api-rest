@@ -25,7 +25,7 @@ export const CharacterContainer = () => {
   }, []);
 
   const handleGoBack = () => {
-    history.push(linkRoutes.characterCollection);
+    history.goBack();
   }
 
   return <CharacterComponent character={character} onGoBack={handleGoBack}/>;

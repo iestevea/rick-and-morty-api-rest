@@ -8,5 +8,5 @@ export const mapFromApiToVm = (
   name: location.name,
   type: location.type,
   dimension: location.dimension,
-  residents: [],
+  residents: location.residents,
 });

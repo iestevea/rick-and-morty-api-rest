@@ -13,16 +13,12 @@ export const EpisodeCollectionContainer = () => {
   } = useEpisodeCollection();
   const history = useHistory();
 
-  React.useEffect(() => {
-    loadEpisodeCollection();
-  }, []);
-
   const handleEdit = (id: string) => {
     history.push(linkRoutes.editEpisode(id));
   };
 
   const handleSearchBy = (options: Option[]) => {
-    // filterEpisodeCollection(options);
+    loadEpisodeCollection(options);
   };
 
   return (

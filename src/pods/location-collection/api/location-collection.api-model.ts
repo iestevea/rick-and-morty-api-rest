@@ -1,13 +1,9 @@
-interface UrlEntity {
-  name: string,
-  url: string
-}
 export interface LocationEntityApi {
   id: number;
   name: string;
   type: string;
   dimension: string;
-  residents: UrlEntity[];
-  url: UrlEntity;
+  residents: string[];
+  url: string;
   created: string;
 }

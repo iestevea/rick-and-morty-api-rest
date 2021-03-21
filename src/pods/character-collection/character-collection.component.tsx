@@ -25,7 +25,11 @@ export const CharacterCollectionComponent: React.FC<Props> = ({
   const [debouncedFilter] = useDebounce(filter, 500);
 
   React.useEffect(() => {
-    onSearchBy([{ key: 'name', value: debouncedFilter }]);
+    setPage(1);
+    onSearchBy([
+      { key: 'name', value: debouncedFilter },
+      { key: 'page', value: 1 },
+    ]);
   }, [debouncedFilter]);
 
   return (
@@ -37,7 +41,7 @@ export const CharacterCollectionComponent: React.FC<Props> = ({
         <TextField
           onChange={(e) => setFilter(e.target.value)}
           value={filter}
-          label="Actor"
+          label="Character"
           variant="outlined"
           size="small"
         />
@@ -55,7 +59,10 @@ export const CharacterCollectionComponent: React.FC<Props> = ({
         count={total}
         onChange={(e, newPage) => {
           setPage(newPage);
-          onSearchBy([{ key: 'page', value: newPage }]);
+          onSearchBy([
+            { key: 'name', value: debouncedFilter },
+            { key: 'page', value: newPage },
+          ]);
         }}
         page={page}
       />

@@ -1,5 +1,3 @@
-import { CharacterEntityApi } from "pods/character-collection/api";
-
 export interface EpisodeEntityApi {
   id: number;
   name: string;

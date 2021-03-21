@@ -25,7 +25,11 @@ export const LocationCollectionComponent: React.FC<Props> = ({
   const [debouncedFilter] = useDebounce(filter, 500);
 
   React.useEffect(() => {
-    onSearchBy([{ key: 'name', value: debouncedFilter }]);
+    setPage(1);
+    onSearchBy([
+      { key: 'name', value: debouncedFilter },
+      { key: 'page', value: 1 },
+    ]);
   }, [debouncedFilter]);
 
   return (
@@ -55,7 +59,10 @@ export const LocationCollectionComponent: React.FC<Props> = ({
         count={total}
         onChange={(e, newPage) => {
           setPage(newPage);
-          onSearchBy([{ key: 'page', value: newPage }]);
+          onSearchBy([
+            { key: 'name', value: debouncedFilter },
+            { key: 'page', value: newPage },
+          ]);
         }}
         page={page}
       />
