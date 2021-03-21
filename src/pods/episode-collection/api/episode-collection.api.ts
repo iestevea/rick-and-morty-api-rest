@@ -4,11 +4,11 @@ import { mapOptions, Option } from 'common/mappers';
 import { EpisodeEntityApi } from './episode-collection.api-model';
 
 export const getEpisodeCollection = async (options?: Option[]): Promise<{ results: EpisodeEntityApi[], count: number }> => {
-  // const endpoint = options ? `${baseUrl}/episode/?${mapOptions(options)}` : `${baseUrl}/episode`;
+  const mappedOptions = mapOptions(options);
   const query = gql`query($page: Int!, $name: String) {
     episodes(page: $page, filter: { name: $name }) {
       info {
-        count
+        pages
       }
       results {
         id
@@ -19,6 +19,6 @@ export const getEpisodeCollection = async (options?: Option[]): Promise<{ result
       }
     }
   }`
-  const { episodes: { results, info: { count } } } = await graphQLClient.request(query, { page: 1, name: "" })
+  const { episodes: { results, info: { pages: count } } } = await graphQLClient.request(query, { page: mappedOptions?.page || 1, name: mappedOptions?.name || "" })
   return { results, count };
 };

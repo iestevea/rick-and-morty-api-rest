@@ -4,7 +4,7 @@ export interface Option {
 }
 
 export const mapOptions = (options: Option[]) => {
-  return options.reduce((acc: string, option: Option) => {
-    return option.value ? `${acc}&${option.key}=${option.value}` : acc;
-  }, '')
+  return options.reduce((acc: any, { key, value }: Option) => {
+    return { ...acc, [key]: value };
+  }, {})
 }

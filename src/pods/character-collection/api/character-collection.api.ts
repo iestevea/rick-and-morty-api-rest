@@ -4,11 +4,11 @@ import { mapOptions, Option } from 'common/mappers';
 import { CharacterEntityApi } from './character-collection.api-model';
 
 export const getCharacterCollection = async (options?: Option[]): Promise<{ results: CharacterEntityApi[], count: number }> => {
-  // const endpoint = options ? `${baseUrl}/character/?${mapOptions(options)}` : `${baseUrl}/character`;
+  const mappedOptions = mapOptions(options);
   const query = gql`query($page: Int!, $name: String) {
     characters(page: $page, filter: { name: $name }) {
       info {
-        count
+        pages
       }
       results {
         id
@@ -20,6 +20,8 @@ export const getCharacterCollection = async (options?: Option[]): Promise<{ resu
       }
     }
   }`
-  const { characters: { results, info: { count } } } = await graphQLClient.request(query, { page: 1, name: "" })
+  console.log('options', options);
+  console.log('mappedOptions', mappedOptions);
+  const { characters: { results, info: { pages: count } } } = await graphQLClient.request(query, { page: mappedOptions?.page || 1, name: mappedOptions?.name || "" })
   return { results, count };
 };

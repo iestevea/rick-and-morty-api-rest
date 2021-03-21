@@ -3,14 +3,12 @@ import { graphQLClient } from 'core/api';
 import { mapOptions, Option } from 'common/mappers';
 import { LocationEntityApi } from './location-collection.api-model';
 
-const baseUrl = process.env.RICK_AND_MORTY_API;
-
 export const getLocationCollection = async (options?: Option[]): Promise<{ results: LocationEntityApi[], count: number }> => {
-  // const endpoint = options ? `${baseUrl}/location/?${mapOptions(options)}` : `${baseUrl}/location`;
+  const mappedOptions = mapOptions(options);
   const query = gql`query($page: Int!, $name: String) {
     locations(page: $page, filter: { name: $name }) {
       info {
-        count
+        pages
       }
       results {
         id
@@ -21,6 +19,6 @@ export const getLocationCollection = async (options?: Option[]): Promise<{ resul
       }
     }
   }`
-  const { locations: { results, info: { count } } } = await graphQLClient.request(query, { page: 1, name: "" })
+  const { locations: { results, info: { pages: count } } } = await graphQLClient.request(query, { page: mappedOptions?.page || 1, name: mappedOptions?.name || "" })
   return { results, count };
 };
