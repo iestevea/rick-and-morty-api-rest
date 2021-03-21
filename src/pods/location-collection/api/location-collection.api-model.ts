@@ -3,7 +3,11 @@ export interface LocationEntityApi {
   name: string;
   type: string;
   dimension: string;
-  residents: string[];
+  residents: Resident[];
   url: string;
   created: string;
+}
+
+interface Resident {
+  name: string;
 }

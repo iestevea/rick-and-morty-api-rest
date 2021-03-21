@@ -5,7 +5,7 @@ import * as React from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import * as api from './api';
 import { CharacterComponent } from './character.component';
-import { mapCharacterFromApiToVm, mapCharacterFromVmToApi } from './character.mappers';
+import { mapCharacterFromApiToVm } from './character.mappers';
 import { Character, createEmptyCharacter } from './character.vm';
 
 export const CharacterContainer = () => {

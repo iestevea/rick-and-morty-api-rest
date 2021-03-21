@@ -1,15 +1,20 @@
-import Axios from 'axios';
+import { gql } from 'graphql-request';
+import { graphQLClient } from 'core/api';
 import { Character } from './character.api-model';
-import { Lookup } from 'common/models';
-
-const charactersApi = process.env.RICK_AND_MORTY_API;
 
 export const getCharacter = async (id: string | string[]): Promise<Character | Character[]> => {
-  const { data } = await Axios.get(`${charactersApi}/character/${id}`);
-  return data;
-};
-
-export const getLocations = async (): Promise<Lookup[]> => {
-  const { data: { results } } = await Axios.get(`${charactersApi}/location`);
-  return results;
+  const query = gql`
+    query($id: ID!) {
+      character(id: $id) {
+          id
+          name
+          status
+          species
+          origin {name}
+          image
+      }
+    }
+  `
+  const { character } = await graphQLClient.request(query, { id });
+  return character;
 };

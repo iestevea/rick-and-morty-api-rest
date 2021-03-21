@@ -5,7 +5,6 @@ export interface Character {
   species: string;
   originName: string;
   image: string;
-  comment: string;
 }
 
 export const createEmptyCharacter = (): Character => ({
@@ -14,6 +13,5 @@ export const createEmptyCharacter = (): Character => ({
   status: "",
   species: "",
   originName: "",
-  image: "",
-  comment: ""
+  image: ""
 });
