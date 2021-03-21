@@ -21,7 +21,10 @@ npm start
 
 - Try!
 
-There are just two routes: The characters list and the detail of each character for editing or adding a new one.
+In the branch *master* there are 3 routes: `/characters`, `/episodes`, `/locations` where you can search by name and the results will appear paginated.
 
+In the branch *json-server* there is just one route `/characters` where you can add a comment in each character. All the info is obtained by json-server.
+
+In the branch *graph-ql* there is the same as in the branch *master* but made with graphQL.
 
 
